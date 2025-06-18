@@ -1,0 +1,44 @@
+<Window x:Class="WpfApp1.Views.PriemDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Прием" Height="400" Width="500" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Icon="/Resources/medical_icon.ico">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="Код приема:" Margin="0,0,10,5" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="0" Grid.Column="1" x:Name="txtCodPriema" Margin="0,0,0,5" IsReadOnly="True"/>
+
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="Врач:" Margin="0,0,10,5" VerticalAlignment="Center"/>
+        <ComboBox Grid.Row="1" Grid.Column="1" x:Name="cmbDoctor" Margin="0,0,0,5" DisplayMemberPath="FIO_Doctor" SelectedValuePath="Cod_Doctor"/>
+
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="Пациент:" Margin="0,0,10,5" VerticalAlignment="Center"/>
+        <ComboBox Grid.Row="2" Grid.Column="1" x:Name="cmbPacient" Margin="0,0,0,5" DisplayMemberPath="FIO_Pacient" SelectedValuePath="Cod_Pacient"/>
+
+        <TextBlock Grid.Row="3" Grid.Column="0" Text="Диагноз:" Margin="0,0,10,5" VerticalAlignment="Center"/>
+        <ComboBox Grid.Row="3" Grid.Column="1" x:Name="cmbDiagnoz" Margin="0,0,0,5" DisplayMemberPath="Diagnoz" SelectedValuePath="Cod_Diagnoz"/>
+
+        <TextBlock Grid.Row="4" Grid.Column="0" Text="Дата приема:" Margin="0,0,10,5" VerticalAlignment="Center"/>
+        <DatePicker Grid.Row="4" Grid.Column="1" x:Name="dpDataPriema" Margin="0,0,0,5"/>
+
+        <TextBlock Grid.Row="5" Grid.Column="0" Text="Время приема:" Margin="0,0,10,5" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="5" Grid.Column="1" x:Name="txtTimePriema" Margin="0,0,0,5"/>
+
+        <StackPanel Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button x:Name="btnSave" Content="Сохранить" Width="80" Margin="0,0,10,0" Click="btnSave_Click"/>
+            <Button x:Name="btnCancel" Content="Отмена" Width="80" Click="btnCancel_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

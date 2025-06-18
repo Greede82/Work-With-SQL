@@ -1,0 +1,40 @@
+<Window x:Class="WpfApp1.Views.LekarstvoDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Лекарство" Height="320" Width="450" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Icon="/Resources/medical_icon.ico">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="Код:" Margin="0,0,10,5" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="0" Grid.Column="1" x:Name="txtCod" Margin="0,0,0,5" IsReadOnly="True"/>
+
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="Название:" Margin="0,0,10,5" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="1" Grid.Column="1" x:Name="txtName" Margin="0,0,0,5"/>
+
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="Дозировка:" Margin="0,0,10,5" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="2" Grid.Column="1" x:Name="txtDozirovka" Margin="0,0,0,5"/>
+
+        <TextBlock Grid.Row="3" Grid.Column="0" Text="Тип упаковки:" Margin="0,0,10,5" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="3" Grid.Column="1" x:Name="txtTypeUpakovka" Margin="0,0,0,5"/>
+
+        <TextBlock Grid.Row="4" Grid.Column="0" Text="Группа:" Margin="0,0,10,5" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="4" Grid.Column="1" x:Name="txtGruppa" Margin="0,0,0,5"/>
+
+        <StackPanel Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button x:Name="btnSave" Content="Сохранить" Width="80" Margin="0,0,10,0" Click="btnSave_Click"/>
+            <Button x:Name="btnCancel" Content="Отмена" Width="80" Click="btnCancel_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

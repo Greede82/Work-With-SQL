@@ -1,0 +1,44 @@
+<Window x:Class="WpfApp1.Views.PacientDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Пациент" Height="350" Width="500" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Icon="/Resources/medical_icon.ico">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="Код:" Margin="0,0,10,5" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="0" Grid.Column="1" x:Name="txtCod" Margin="0,0,0,5" IsReadOnly="True"/>
+
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="ФИО:" Margin="0,0,10,5" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="1" Grid.Column="1" x:Name="txtFIO" Margin="0,0,0,5"/>
+
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="Адрес:" Margin="0,0,10,5" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="2" Grid.Column="1" x:Name="txtAdress" Margin="0,0,0,5"/>
+
+        <TextBlock Grid.Row="3" Grid.Column="0" Text="IDNP:" Margin="0,0,10,5" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="3" Grid.Column="1" x:Name="txtIDNP" Margin="0,0,0,5"/>
+
+        <TextBlock Grid.Row="4" Grid.Column="0" Text="Страховка:" Margin="0,0,10,5" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="4" Grid.Column="1" x:Name="txtStrahovka" Margin="0,0,0,5"/>
+
+        <TextBlock Grid.Row="5" Grid.Column="0" Text="№ Участка:" Margin="0,0,10,5" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="5" Grid.Column="1" x:Name="txtNrUchastka" Margin="0,0,0,5"/>
+
+        <StackPanel Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button x:Name="btnSave" Content="Сохранить" Width="80" Margin="0,0,10,0" Click="btnSave_Click"/>
+            <Button x:Name="btnCancel" Content="Отмена" Width="80" Click="btnCancel_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

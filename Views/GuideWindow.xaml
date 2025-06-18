@@ -1,0 +1,224 @@
+<Window x:Class="WpfApp1.Views.GuideWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1.Views"
+        mc:Ignorable="d"
+        Title="Руководство пользователя" Height="600" Width="800"
+        WindowStartupLocation="CenterOwner" WindowState="Maximized" Icon="/Resources/medical_icon.ico">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Руководство пользователя" FontSize="20" FontWeight="Bold" Margin="0,0,0,10"/>
+
+        <TabControl Grid.Row="1" Margin="0,0,0,10">
+            <TabItem Header="Общая информация">
+                <ScrollViewer>
+                    <StackPanel Margin="10">
+                        <TextBlock Text="О программе" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
+                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+                            Система диспансеризации предназначена для автоматизации работы медицинского учреждения. 
+                            Программа позволяет вести учет пациентов, врачей, диагнозов, лекарств, приемов и рецептов, 
+                            а также формировать различные отчеты.
+                        </TextBlock>
+
+                        <TextBlock Text="Начало работы" FontSize="16" FontWeight="Bold" Margin="0,10,0,10"/>
+                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+                            Для начала работы с программой необходимо авторизоваться, используя логин и пароль. 
+                            В зависимости от роли пользователя (Администратор, Врач, Регистратор) доступны различные функции.
+                        </TextBlock>
+
+                        <TextBlock Text="Основные функции" FontSize="16" FontWeight="Bold" Margin="0,10,0,10"/>
+                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,5">Программа предоставляет следующие основные функции:</TextBlock>
+                        <ListBox BorderThickness="0" IsHitTestVisible="False" Margin="20,0,0,10">
+                            <ListBoxItem>• Управление данными о пациентах</ListBoxItem>
+                            <ListBoxItem>• Управление данными о врачах</ListBoxItem>
+                            <ListBoxItem>• Ведение справочника диагнозов</ListBoxItem>
+                            <ListBoxItem>• Ведение справочника лекарств</ListBoxItem>
+                            <ListBoxItem>• Регистрация приемов пациентов</ListBoxItem>
+                            <ListBoxItem>• Выписка рецептов</ListBoxItem>
+                            <ListBoxItem>• Назначение лечения</ListBoxItem>
+                            <ListBoxItem>• Формирование и печать отчетов</ListBoxItem>
+                            <ListBoxItem>• Резервное копирование и восстановление данных</ListBoxItem>
+                        </ListBox>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <TabItem Header="Работа с данными">
+                <ScrollViewer>
+                    <StackPanel Margin="10">
+                        <TextBlock Text="Работа с данными" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
+                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+                            Для работы с данными используются вкладки в главном окне программы. 
+                            Каждая вкладка содержит таблицу с данными и панель инструментов для добавления, 
+                            редактирования и удаления записей.
+                        </TextBlock>
+
+                        <TextBlock Text="Поиск данных" FontSize="14" FontWeight="Bold" Margin="0,10,0,5"/>
+                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+                            Для поиска данных используйте поле поиска в верхней части каждой вкладки. 
+                            Введите текст для поиска, и таблица будет автоматически отфильтрована.
+                        </TextBlock>
+
+                        <TextBlock Text="Добавление новых записей" FontSize="14" FontWeight="Bold" Margin="0,10,0,5"/>
+                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+                            Для добавления новой записи нажмите кнопку "Добавить" на соответствующей вкладке. 
+                            Откроется окно для ввода данных. Заполните все необходимые поля и нажмите "Сохранить".
+                        </TextBlock>
+
+                        <TextBlock Text="Редактирование записей" FontSize="14" FontWeight="Bold" Margin="0,10,0,5"/>
+                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+                            Для редактирования записи выберите её в таблице и нажмите кнопку "Изменить". 
+                            Откроется окно с текущими данными, которые можно изменить. 
+                            После внесения изменений нажмите "Сохранить".
+                        </TextBlock>
+
+                        <TextBlock Text="Удаление записей" FontSize="14" FontWeight="Bold" Margin="0,10,0,5"/>
+                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+                            Для удаления записи выберите её в таблице и нажмите кнопку "Удалить". 
+                            Подтвердите удаление в диалоговом окне.
+                        </TextBlock>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <TabItem Header="Отчеты">
+                <ScrollViewer>
+                    <StackPanel Margin="10">
+                        <TextBlock Text="Работа с отчетами" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
+                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+                            Программа позволяет формировать различные отчеты для анализа данных. 
+                            Для работы с отчетами используйте вкладку "Отчеты" в главном окне программы.
+                        </TextBlock>
+
+                        <TextBlock Text="Доступные отчеты" FontSize="14" FontWeight="Bold" Margin="0,10,0,5"/>
+                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,5">В программе доступны следующие типы отчетов:</TextBlock>
+                        <ListBox BorderThickness="0" IsHitTestVisible="False" Margin="20,0,0,10">
+                            <ListBoxItem>• Отчет по нагрузке врачей - показывает количество приемов по каждому врачу</ListBoxItem>
+                            <ListBoxItem>• Статистика по диагнозам - показывает частоту встречаемости различных диагнозов</ListBoxItem>
+                            <ListBoxItem>• Статистика по лекарствам - показывает частоту назначения различных лекарств</ListBoxItem>
+                        </ListBox>
+
+                        <TextBlock Text="Формирование отчета" FontSize="14" FontWeight="Bold" Margin="0,10,0,5"/>
+                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+                            Для формирования отчета нажмите соответствующую кнопку на вкладке "Отчеты". 
+                            Отчет будет сформирован и отображен в виде таблицы и графика.
+                        </TextBlock>
+
+                        <TextBlock Text="Печать отчета" FontSize="14" FontWeight="Bold" Margin="0,10,0,5"/>
+                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+                            Для печати отчета нажмите кнопку "ПЕЧАТЬ ОТЧЕТА" на вкладке "Отчеты". 
+                            Будет сформирована печатная форма, содержащая таблицу и график. 
+                            В диалоговом окне выберите принтер и настройки печати.
+                        </TextBlock>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <TabItem Header="Резервное копирование">
+                <ScrollViewer>
+                    <StackPanel Margin="10">
+                        <TextBlock Text="Резервное копирование и восстановление данных" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
+                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+                            Программа позволяет создавать резервные копии базы данных и восстанавливать данные из резервных копий. 
+                            Эти функции доступны только пользователям с правами администратора.
+                        </TextBlock>
+
+                        <TextBlock Text="Создание резервной копии" FontSize="14" FontWeight="Bold" Margin="0,10,0,5"/>
+                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+                            Для создания резервной копии базы данных:
+                            <LineBreak/>1. Нажмите кнопку "Резервное копирование" в главном меню
+                            <LineBreak/>2. В открывшемся окне нажмите кнопку "Создать резервную копию"
+                            <LineBreak/>3. Подтвердите операцию
+                            <LineBreak/>4. Дождитесь завершения процесса создания резервной копии
+                            <LineBreak/>
+                            <LineBreak/>Резервные копии сохраняются в папке "Мои документы\Dispanserizatsia\Backups"
+                        </TextBlock>
+
+                        <TextBlock Text="Восстановление данных" FontSize="14" FontWeight="Bold" Margin="0,10,0,5"/>
+                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+                            Для восстановления данных из резервной копии:
+                            <LineBreak/>1. Нажмите кнопку "Резервное копирование" в главном меню
+                            <LineBreak/>2. В списке выберите нужную резервную копию
+                            <LineBreak/>3. Нажмите кнопку "Восстановить из копии"
+                            <LineBreak/>4. Подтвердите операцию
+                            <LineBreak/>5. Дождитесь завершения процесса восстановления
+                            <LineBreak/>
+                            <LineBreak/>Внимание! Восстановление данных приведет к замене всех текущих данных данными из резервной копии.
+                            <LineBreak/>После восстановления приложение будет автоматически перезапущено.
+                        </TextBlock>
+
+                        <TextBlock Text="Восстановление из внешнего файла" FontSize="14" FontWeight="Bold" Margin="0,10,0,5"/>
+                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+                            Для восстановления данных из внешнего файла резервной копии:
+                            <LineBreak/>1. Нажмите кнопку "Резервное копирование" в главном меню
+                            <LineBreak/>2. Нажмите кнопку "Выбрать внешний файл"
+                            <LineBreak/>3. В диалоговом окне выберите файл резервной копии (.bak)
+                            <LineBreak/>4. Подтвердите операцию восстановления
+                            <LineBreak/>5. Дождитесь завершения процесса восстановления
+                        </TextBlock>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <TabItem Header="Управление пользователями">
+                <ScrollViewer>
+                    <StackPanel Margin="10">
+                        <TextBlock Text="Управление пользователями" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
+                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+                            Функция управления пользователями доступна только администраторам системы. 
+                            Она позволяет создавать новых пользователей, изменять их данные и назначать роли.
+                        </TextBlock>
+
+                        <TextBlock Text="Роли пользователей" FontSize="14" FontWeight="Bold" Margin="0,10,0,5"/>
+                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,5">В системе предусмотрены следующие роли пользователей:</TextBlock>
+                        <ListBox BorderThickness="0" IsHitTestVisible="False" Margin="20,0,0,10">
+                            <ListBoxItem>• Администратор - полный доступ ко всем функциям системы</ListBoxItem>
+                            <ListBoxItem>• Врач - доступ к данным пациентов, приемам, рецептам, лечению и отчетам</ListBoxItem>
+                            <ListBoxItem>• Регистратор - доступ только к данным пациентов и базовым отчетам</ListBoxItem>
+                        </ListBox>
+
+                        <TextBlock Text="Открытие окна управления пользователями" FontSize="14" FontWeight="Bold" Margin="0,10,0,5"/>
+                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+                            Для открытия окна управления пользователями нажмите кнопку "Управление пользователями" 
+                            в верхней части главного окна программы.
+                        </TextBlock>
+
+                        <TextBlock Text="Создание нового пользователя" FontSize="14" FontWeight="Bold" Margin="0,10,0,5"/>
+                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+                            Для создания нового пользователя:
+                            <LineBreak/>1. Нажмите кнопку "Добавить" в окне управления пользователями
+                            <LineBreak/>2. Заполните поля "Логин", "Пароль", "ФИО" и выберите роль пользователя
+                            <LineBreak/>3. Нажмите "Сохранить"
+                        </TextBlock>
+
+                        <TextBlock Text="Изменение данных пользователя" FontSize="14" FontWeight="Bold" Margin="0,10,0,5"/>
+                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+                            Для изменения данных пользователя:
+                            <LineBreak/>1. Выберите пользователя в списке
+                            <LineBreak/>2. Нажмите кнопку "Изменить"
+                            <LineBreak/>3. Внесите необходимые изменения
+                            <LineBreak/>4. Нажмите "Сохранить"
+                        </TextBlock>
+
+                        <TextBlock Text="Удаление пользователя" FontSize="14" FontWeight="Bold" Margin="0,10,0,5"/>
+                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+                            Для удаления пользователя:
+                            <LineBreak/>1. Выберите пользователя в списке
+                            <LineBreak/>2. Нажмите кнопку "Удалить"
+                            <LineBreak/>3. Подтвердите удаление
+                        </TextBlock>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+        </TabControl>
+
+        <Button Grid.Row="2" Content="Закрыть" Width="100" HorizontalAlignment="Right" Click="btnClose_Click"/>
+    </Grid>
+</Window>

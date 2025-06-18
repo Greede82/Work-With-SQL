@@ -1,0 +1,54 @@
+<Window x:Class="WpfApp1.Views.BackupRestoreWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1.Views"
+        mc:Ignorable="d"
+        Title="Резервное копирование и восстановление" Height="450" Width="600"
+        WindowStartupLocation="CenterOwner" ResizeMode="NoResize">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Margin="0,0,0,10">
+            <TextBlock Text="Управление резервными копиями базы данных" FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
+            <TextBlock Text="Здесь вы можете создать резервную копию базы данных или восстановить данные из существующей копии." TextWrapping="Wrap" Margin="0,0,0,10"/>
+            <TextBlock Text="Внимание! Восстановление данных приведет к замене всех текущих данных. Убедитесь, что вы создали резервную копию перед восстановлением." 
+                       TextWrapping="Wrap" Foreground="Red" FontWeight="Bold"/>
+        </StackPanel>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <ListBox x:Name="lstBackups" Grid.Column="0" Margin="0,0,10,0" SelectionChanged="lstBackups_SelectionChanged">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical" Margin="0,5">
+                            <TextBlock Text="{Binding FileName}" FontWeight="Bold"/>
+                            <TextBlock Text="{Binding CreationDate}"/>
+                            <TextBlock Text="{Binding FilePath}" FontSize="10" Foreground="Gray"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+            <StackPanel Grid.Column="1" Width="150">
+                <Button x:Name="btnCreateBackup" Content="Создать резервную копию" Margin="0,0,0,10" Padding="5" Click="btnCreateBackup_Click"/>
+                <Button x:Name="btnRestoreBackup" Content="Восстановить из копии" Margin="0,0,0,10" Padding="5" Click="btnRestoreBackup_Click" IsEnabled="False"/>
+                <Button x:Name="btnSelectExternalBackup" Content="Выбрать внешний файл" Margin="0,0,0,10" Padding="5" Click="btnSelectExternalBackup_Click"/>
+                <Button x:Name="btnRefreshList" Content="Обновить список" Margin="0,0,0,10" Padding="5" Click="btnRefreshList_Click"/>
+            </StackPanel>
+        </Grid>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+            <Button x:Name="btnClose" Content="Закрыть" Width="100" Padding="5" Click="btnClose_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

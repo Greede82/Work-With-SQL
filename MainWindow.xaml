@@ -1,0 +1,548 @@
+<Window x:Class="WpfApp1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        mc:Ignorable="d"
+        Title="Система диспансеризации" Height="700" Width="1200" 
+        WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" WindowState="Maximized"
+        Style="{StaticResource MainWindowStyle}" Icon="/Resources/medical_icon.ico">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Background="{StaticResource DarkBlueBrush}" Margin="0,0,0,5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            
+            <StackPanel Grid.Column="0" Orientation="Horizontal">
+                <TextBlock Text="Система диспансеризации" Style="{StaticResource HeaderTextStyle}" Foreground="White"/>
+                <TextBlock x:Name="txtConnectionStatus" Text="Статус подключения: Не подключено" Margin="20,10,0,10" Foreground="White"/>
+            </StackPanel>
+            
+            <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="0,0,10,0">
+                <TextBlock x:Name="txtUserInfo" Text="Пользователь: Не авторизован" Margin="0,10,10,10" Foreground="White" VerticalAlignment="Center"/>
+                <Button x:Name="btnBackupRestore" Content="Резервное копирование" Margin="5,5,5,5" Padding="5,2" Click="btnBackupRestore_Click"/>
+                <Button x:Name="btnUserGuide" Content="Руководство" Margin="5,5,5,5" Padding="5,2" Click="btnUserGuide_Click"/>
+                <Button x:Name="btnUserManagement" Content="Управление пользователями" Margin="5,5,5,5" Padding="5,2" Click="btnUserManagement_Click"/>
+                <Button x:Name="btnLogout" Content="Выход" Margin="5,5,5,5" Padding="5,2" Click="btnLogout_Click"/>
+            </StackPanel>
+        </Grid>
+
+        <TabControl Grid.Row="1" x:Name="tabControl" Margin="5" Style="{StaticResource MainTabControlStyle}">
+            <TabItem Header="Пациенты" Style="{StaticResource TabItemStyle}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="5">
+                            <TextBlock Text="Поиск:" Style="{StaticResource LabelTextStyle}"/>
+                            <TextBox x:Name="txtSearchPacient" Width="250" Margin="0,0,10,0" Style="{StaticResource TextBoxStyle}" TextChanged="txtSearchPacient_TextChanged"/>
+                            <Button x:Name="btnClearSearchPacient" Content="Очистить" Width="80" Style="{StaticResource ButtonStyle}" Click="btnClearSearchPacient_Click"/>
+                        </StackPanel>
+                        
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="5">
+                            <Button x:Name="btnAddPacient" Content="Добавить" Width="80" Margin="0,0,5,0" Style="{StaticResource AddButtonStyle}" Click="btnAddPacient_Click"/>
+                            <Button x:Name="btnEditPacient" Content="Изменить" Width="80" Margin="0,0,5,0" Style="{StaticResource EditButtonStyle}" Click="btnEditPacient_Click"/>
+                            <Button x:Name="btnDeletePacient" Content="Удалить" Width="80" Style="{StaticResource DeleteButtonStyle}" Click="btnDeletePacient_Click"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <DataGrid Grid.Row="1" x:Name="dgPacients" Style="{StaticResource DataGridStyle}"
+                              SelectionMode="Single" SelectionChanged="dgPacients_SelectionChanged" Margin="5">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="№" Binding="{Binding RowNumber}" Width="50">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource DataGridColumnHeaderStyle}"/>
+                                </DataGridTextColumn.HeaderStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Код" Binding="{Binding Cod_Pacient}" Width="70">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource DataGridColumnHeaderStyle}"/>
+                                </DataGridTextColumn.HeaderStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="ФИО" Binding="{Binding FIO_Pacient}" Width="*">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource DataGridColumnHeaderStyle}"/>
+                                </DataGridTextColumn.HeaderStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Адрес" Binding="{Binding Adress}" Width="200">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource DataGridColumnHeaderStyle}"/>
+                                </DataGridTextColumn.HeaderStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="IDNP" Binding="{Binding IDNP}" Width="120">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource DataGridColumnHeaderStyle}"/>
+                                </DataGridTextColumn.HeaderStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Страховка" Binding="{Binding Strahovka}" Width="120">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource DataGridColumnHeaderStyle}"/>
+                                </DataGridTextColumn.HeaderStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="№ Участка" Binding="{Binding Nr_Uchastka}" Width="100">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource DataGridColumnHeaderStyle}"/>
+                                </DataGridTextColumn.HeaderStyle>
+                            </DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="5">
+                        <TextBlock x:Name="txtPacientCount" Text="Всего пациентов: 0" VerticalAlignment="Center" Style="{StaticResource LabelTextStyle}"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Врачи" Style="{StaticResource TabItemStyle}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="5">
+                            <TextBlock Text="Поиск:" Style="{StaticResource LabelTextStyle}"/>
+                            <TextBox x:Name="txtSearchDoctor" Width="250" Margin="0,0,10,0" Style="{StaticResource TextBoxStyle}" TextChanged="txtSearchDoctor_TextChanged"/>
+                            <Button x:Name="btnClearSearchDoctor" Content="Очистить" Width="80" Style="{StaticResource ButtonStyle}" Click="btnClearSearchDoctor_Click"/>
+                        </StackPanel>
+                        
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="5">
+                            <Button x:Name="btnAddDoctor" Content="Добавить" Width="80" Margin="0,0,5,0" Style="{StaticResource AddButtonStyle}" Click="btnAddDoctor_Click"/>
+                            <Button x:Name="btnEditDoctor" Content="Изменить" Width="80" Margin="0,0,5,0" Style="{StaticResource EditButtonStyle}" Click="btnEditDoctor_Click"/>
+                            <Button x:Name="btnDeleteDoctor" Content="Удалить" Width="80" Style="{StaticResource DeleteButtonStyle}" Click="btnDeleteDoctor_Click"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <DataGrid Grid.Row="1" x:Name="dgDoctors" Style="{StaticResource DataGridStyle}"
+                              SelectionMode="Single" SelectionChanged="dgDoctors_SelectionChanged" Margin="5">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="№" Binding="{Binding RowNumber}" Width="50">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource DataGridColumnHeaderStyle}"/>
+                                </DataGridTextColumn.HeaderStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Код" Binding="{Binding Cod_Doctor}" Width="70">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource DataGridColumnHeaderStyle}"/>
+                                </DataGridTextColumn.HeaderStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="ФИО" Binding="{Binding FIO_Doctor}" Width="*">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource DataGridColumnHeaderStyle}"/>
+                                </DataGridTextColumn.HeaderStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="№ Участка" Binding="{Binding Nr_Uchastka_DOC}" Width="100">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource DataGridColumnHeaderStyle}"/>
+                                </DataGridTextColumn.HeaderStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="№ Кабинета" Binding="{Binding Nr_Cabinet}" Width="100">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource DataGridColumnHeaderStyle}"/>
+                                </DataGridTextColumn.HeaderStyle>
+                            </DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="5">
+                        <TextBlock x:Name="txtDoctorCount" Text="Всего врачей: 0" VerticalAlignment="Center" Style="{StaticResource LabelTextStyle}"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Диагнозы" Style="{StaticResource TabItemStyle}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="5">
+                            <TextBlock Text="Поиск:" Style="{StaticResource LabelTextStyle}"/>
+                            <TextBox x:Name="txtSearchDiagnoz" Width="250" Margin="0,0,10,0" Style="{StaticResource TextBoxStyle}" TextChanged="txtSearchDiagnoz_TextChanged"/>
+                            <Button x:Name="btnClearSearchDiagnoz" Content="Очистить" Width="80" Style="{StaticResource ButtonStyle}" Click="btnClearSearchDiagnoz_Click"/>
+                        </StackPanel>
+                        
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="5">
+                            <Button x:Name="btnAddDiagnoz" Content="Добавить" Width="80" Margin="0,0,5,0" Style="{StaticResource AddButtonStyle}" Click="btnAddDiagnoz_Click"/>
+                            <Button x:Name="btnEditDiagnoz" Content="Изменить" Width="80" Margin="0,0,5,0" Style="{StaticResource EditButtonStyle}" Click="btnEditDiagnoz_Click"/>
+                            <Button x:Name="btnDeleteDiagnoz" Content="Удалить" Width="80" Style="{StaticResource DeleteButtonStyle}" Click="btnDeleteDiagnoz_Click"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <DataGrid Grid.Row="1" x:Name="dgDiagnozes" Style="{StaticResource DataGridStyle}"
+                              SelectionMode="Single" SelectionChanged="dgDiagnozes_SelectionChanged" Margin="5">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="№" Binding="{Binding RowNumber}" Width="50">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource DataGridColumnHeaderStyle}"/>
+                                </DataGridTextColumn.HeaderStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Код" Binding="{Binding Cod_Diagnoz}" Width="70">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource DataGridColumnHeaderStyle}"/>
+                                </DataGridTextColumn.HeaderStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Диагноз" Binding="{Binding Diagnoz}" Width="*">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource DataGridColumnHeaderStyle}"/>
+                                </DataGridTextColumn.HeaderStyle>
+                            </DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="5">
+                        <TextBlock x:Name="txtDiagnozCount" Text="Всего диагнозов: 0" VerticalAlignment="Center" Style="{StaticResource LabelTextStyle}"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Лекарства" Style="{StaticResource TabItemStyle}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="5">
+                            <TextBlock Text="Поиск:" Style="{StaticResource LabelTextStyle}"/>
+                            <TextBox x:Name="txtSearchLekarstvo" Width="250" Margin="0,0,10,0" Style="{StaticResource TextBoxStyle}" TextChanged="txtSearchLekarstvo_TextChanged"/>
+                            <Button x:Name="btnClearSearchLekarstvo" Content="Очистить" Width="80" Style="{StaticResource ButtonStyle}" Click="btnClearSearchLekarstvo_Click"/>
+                        </StackPanel>
+                        
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="5">
+                            <Button x:Name="btnAddLekarstvo" Content="Добавить" Width="80" Margin="0,0,5,0" Style="{StaticResource AddButtonStyle}" Click="btnAddLekarstvo_Click"/>
+                            <Button x:Name="btnEditLekarstvo" Content="Изменить" Width="80" Margin="0,0,5,0" Style="{StaticResource EditButtonStyle}" Click="btnEditLekarstvo_Click"/>
+                            <Button x:Name="btnDeleteLekarstvo" Content="Удалить" Width="80" Style="{StaticResource DeleteButtonStyle}" Click="btnDeleteLekarstvo_Click"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <DataGrid Grid.Row="1" x:Name="dgLekarstva" Style="{StaticResource DataGridStyle}"
+                              SelectionMode="Single" SelectionChanged="dgLekarstva_SelectionChanged" Margin="5">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="№" Binding="{Binding RowNumber}" Width="50">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource DataGridColumnHeaderStyle}"/>
+                                </DataGridTextColumn.HeaderStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Код" Binding="{Binding Cod_Lekarstva}" Width="70">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource DataGridColumnHeaderStyle}"/>
+                                </DataGridTextColumn.HeaderStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Название" Binding="{Binding Name_Lekarstva}" Width="*">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource DataGridColumnHeaderStyle}"/>
+                                </DataGridTextColumn.HeaderStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Дозировка" Binding="{Binding Dozirovka}" Width="100">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource DataGridColumnHeaderStyle}"/>
+                                </DataGridTextColumn.HeaderStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Тип упаковки" Binding="{Binding Type_Upakovka}" Width="120">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource DataGridColumnHeaderStyle}"/>
+                                </DataGridTextColumn.HeaderStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Группа" Binding="{Binding Gruppa}" Width="120">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource DataGridColumnHeaderStyle}"/>
+                                </DataGridTextColumn.HeaderStyle>
+                            </DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="5">
+                        <TextBlock x:Name="txtLekarstvoCount" Text="Всего лекарств: 0" VerticalAlignment="Center" Style="{StaticResource LabelTextStyle}"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Приемы" Style="{StaticResource TabItemStyle}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="5">
+                            <TextBlock Text="Поиск:" Style="{StaticResource LabelTextStyle}"/>
+                            <TextBox x:Name="txtSearchPriem" Width="250" Margin="0,0,10,0" Style="{StaticResource TextBoxStyle}" TextChanged="txtSearchPriem_TextChanged"/>
+                            <Button x:Name="btnClearSearchPriem" Content="Очистить" Width="80" Style="{StaticResource ButtonStyle}" Click="btnClearSearchPriem_Click"/>
+                            
+                            <TextBlock Text="Фильтр по дате:" Style="{StaticResource LabelTextStyle}" Margin="10,0,5,0"/>
+                            <DatePicker x:Name="dpStartDate" Width="120" Margin="0,0,5,0" SelectedDateChanged="dpDate_SelectedDateChanged" Style="{StaticResource DatePickerStyle}"/>
+                            <TextBlock Text="до" Style="{StaticResource LabelTextStyle}" Margin="0,0,5,0"/>
+                            <DatePicker x:Name="dpEndDate" Width="120" Margin="0,0,5,0" SelectedDateChanged="dpDate_SelectedDateChanged" Style="{StaticResource DatePickerStyle}"/>
+                            <Button x:Name="btnClearDateFilter" Content="Сбросить" Width="80" Style="{StaticResource ButtonStyle}" Click="btnClearDateFilter_Click"/>
+                        </StackPanel>
+                        
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="5">
+                            <Button x:Name="btnAddPriem" Content="Добавить" Width="80" Margin="0,0,5,0" Style="{StaticResource AddButtonStyle}" Click="btnAddPriem_Click"/>
+                            <Button x:Name="btnEditPriem" Content="Изменить" Width="80" Margin="0,0,5,0" Style="{StaticResource EditButtonStyle}" Click="btnEditPriem_Click"/>
+                            <Button x:Name="btnDeletePriem" Content="Удалить" Width="80" Style="{StaticResource DeleteButtonStyle}" Click="btnDeletePriem_Click"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <DataGrid Grid.Row="1" x:Name="dgPriems" Style="{StaticResource DataGridStyle}"
+                              SelectionMode="Single" SelectionChanged="dgPriems_SelectionChanged" Margin="5">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="№" Binding="{Binding RowNumber}" Width="50">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource DataGridColumnHeaderStyle}"/>
+                                </DataGridTextColumn.HeaderStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Код" Binding="{Binding Cod_Priema}" Width="70">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource DataGridColumnHeaderStyle}"/>
+                                </DataGridTextColumn.HeaderStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Врач" Binding="{Binding DoctorName}" Width="*">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource DataGridColumnHeaderStyle}"/>
+                                </DataGridTextColumn.HeaderStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Пациент" Binding="{Binding PacientName}" Width="*">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource DataGridColumnHeaderStyle}"/>
+                                </DataGridTextColumn.HeaderStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Диагноз" Binding="{Binding DiagnozName}" Width="*">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource DataGridColumnHeaderStyle}"/>
+                                </DataGridTextColumn.HeaderStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Дата" Binding="{Binding Data_Priema, StringFormat=\{0:dd.MM.yyyy\}}" Width="100">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource DataGridColumnHeaderStyle}"/>
+                                </DataGridTextColumn.HeaderStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Время" Binding="{Binding Time_Priema}" Width="80">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource DataGridColumnHeaderStyle}"/>
+                                </DataGridTextColumn.HeaderStyle>
+                            </DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="5">
+                        <TextBlock x:Name="txtPriemCount" Text="Всего приемов: 0" VerticalAlignment="Center" Style="{StaticResource LabelTextStyle}"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Рецепты" Style="{StaticResource TabItemStyle}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="5">
+                            <TextBlock Text="Поиск:" Style="{StaticResource LabelTextStyle}"/>
+                            <TextBox x:Name="txtSearchRetsept" Width="250" Margin="0,0,10,0" Style="{StaticResource TextBoxStyle}" TextChanged="txtSearchRetsept_TextChanged"/>
+                            <Button x:Name="btnClearSearchRetsept" Content="Очистить" Width="80" Style="{StaticResource ButtonStyle}" Click="btnClearSearchRetsept_Click"/>
+                        </StackPanel>
+                        
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="5">
+                            <Button x:Name="btnAddRetsept" Content="Добавить" Width="80" Margin="0,0,5,0" Style="{StaticResource AddButtonStyle}" Click="btnAddRetsept_Click"/>
+                            <Button x:Name="btnEditRetsept" Content="Изменить" Width="80" Margin="0,0,5,0" Style="{StaticResource EditButtonStyle}" Click="btnEditRetsept_Click"/>
+                            <Button x:Name="btnDeleteRetsept" Content="Удалить" Width="80" Style="{StaticResource DeleteButtonStyle}" Click="btnDeleteRetsept_Click"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <DataGrid Grid.Row="1" x:Name="dgRetsepts" Style="{StaticResource DataGridStyle}"
+                              SelectionMode="Single" SelectionChanged="dgRetsepts_SelectionChanged" Margin="5">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="№" Binding="{Binding RowNumber}" Width="50">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource DataGridColumnHeaderStyle}"/>
+                                </DataGridTextColumn.HeaderStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="№ Рецепта" Binding="{Binding Nr_Retsepta}" Width="100">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource DataGridColumnHeaderStyle}"/>
+                                </DataGridTextColumn.HeaderStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="№ Приема" Binding="{Binding Cod_Priema}" Width="100">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource DataGridColumnHeaderStyle}"/>
+                                </DataGridTextColumn.HeaderStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Пациент" Binding="{Binding PacientName}" Width="*">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource DataGridColumnHeaderStyle}"/>
+                                </DataGridTextColumn.HeaderStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Диагноз" Binding="{Binding DiagnozName}" Width="*">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource DataGridColumnHeaderStyle}"/>
+                                </DataGridTextColumn.HeaderStyle>
+                            </DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="5">
+                        <TextBlock x:Name="txtRetseptCount" Text="Всего рецептов: 0" VerticalAlignment="Center" Style="{StaticResource LabelTextStyle}"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Лечение" Style="{StaticResource TabItemStyle}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="5">
+                            <TextBlock Text="Поиск:" Style="{StaticResource LabelTextStyle}"/>
+                            <TextBox x:Name="txtSearchLechenie" Width="250" Margin="0,0,10,0" Style="{StaticResource TextBoxStyle}" TextChanged="txtSearchLechenie_TextChanged"/>
+                            <Button x:Name="btnClearSearchLechenie" Content="Очистить" Width="80" Style="{StaticResource ButtonStyle}" Click="btnClearSearchLechenie_Click"/>
+                        </StackPanel>
+                        
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="5">
+                            <Button x:Name="btnAddLechenie" Content="Добавить" Width="80" Margin="0,0,5,0" Style="{StaticResource AddButtonStyle}" Click="btnAddLechenie_Click"/>
+                            <Button x:Name="btnDeleteLechenie" Content="Удалить" Width="80" Style="{StaticResource DeleteButtonStyle}" Click="btnDeleteLechenie_Click"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <DataGrid Grid.Row="1" x:Name="dgLechenies" Style="{StaticResource DataGridStyle}"
+                              SelectionMode="Single" SelectionChanged="dgLechenies_SelectionChanged" Margin="5">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="№" Binding="{Binding RowNumber}" Width="50">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource DataGridColumnHeaderStyle}"/>
+                                </DataGridTextColumn.HeaderStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="№ Рецепта" Binding="{Binding Nr_Retsepta}" Width="100">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource DataGridColumnHeaderStyle}"/>
+                                </DataGridTextColumn.HeaderStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Код лекарства" Binding="{Binding Cod_Lekarstva}" Width="120">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource DataGridColumnHeaderStyle}"/>
+                                </DataGridTextColumn.HeaderStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Лекарство" Binding="{Binding LekarstvoName}" Width="*">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource DataGridColumnHeaderStyle}"/>
+                                </DataGridTextColumn.HeaderStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Пациент" Binding="{Binding PacientName}" Width="*">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource DataGridColumnHeaderStyle}"/>
+                                </DataGridTextColumn.HeaderStyle>
+                            </DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="5">
+                        <TextBlock x:Name="txtLechenieCount" Text="Всего назначений: 0" VerticalAlignment="Center" Style="{StaticResource LabelTextStyle}"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Отчеты" Style="{StaticResource TabItemStyle}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    
+                    <Grid Grid.Row="0" Margin="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="10">
+                            <Button x:Name="btnReportDoctorWorkload" Content="Отчет по нагрузке врачей" Width="200" Margin="0,0,10,0" Style="{StaticResource ButtonStyle}" Click="btnReportDoctorWorkload_Click"/>
+                            <Button x:Name="btnReportDiagnozStatistics" Content="Статистика по диагнозам" Width="200" Margin="0,0,10,0" Style="{StaticResource ButtonStyle}" Click="btnReportDiagnozStatistics_Click"/>
+                            <Button x:Name="btnReportMedicationUsage" Content="Статистика по лекарствам" Width="200" Margin="0,0,10,0" Style="{StaticResource ButtonStyle}" Click="btnReportMedicationUsage_Click"/>
+                        </StackPanel>
+                        
+                        <Button Grid.Column="1" x:Name="btnPrintReportDirect" Content="ПЕЧАТЬ ОТЧЕТА" Width="150" Height="40" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10,5,10,5" Background="#FF0066CC" Foreground="White" FontWeight="Bold" Click="btnPrintReport_Click"/>
+                    </Grid>
+                    
+                    <TabControl Grid.Row="2" x:Name="tabReports" Margin="5" Style="{StaticResource MainTabControlStyle}">
+                        <TabItem Header="Результаты отчета" x:Name="tabReportResults" Style="{StaticResource TabItemStyle}">
+                            <DataGrid x:Name="dgReportResults" AutoGenerateColumns="True" IsReadOnly="True" Margin="5" Style="{StaticResource DataGridStyle}"/>
+                        </TabItem>
+                        <TabItem Header="График" x:Name="tabReportChart" Style="{StaticResource TabItemStyle}">
+                            <WindowsFormsHost x:Name="chartHost" Margin="5"/>
+                        </TabItem>
+                    </TabControl>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+        <StatusBar Grid.Row="2" Style="{StaticResource StatusBarStyle}">
+            <StatusBarItem>
+                <TextBlock x:Name="txtStatus" Text="Готово" Style="{StaticResource StatusTextStyle}"/>
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
+</Window>

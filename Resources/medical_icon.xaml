@@ -1,0 +1,8 @@
+<Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Canvas Width="100" Height="100">
+        <Ellipse Width="100" Height="100" Fill="#2196F3" />
+        <Rectangle Canvas.Left="25" Canvas.Top="45" Width="50" Height="10" Fill="White" />
+        <Rectangle Canvas.Left="45" Canvas.Top="25" Width="10" Height="50" Fill="White" />
+    </Canvas>
+</Viewbox>
